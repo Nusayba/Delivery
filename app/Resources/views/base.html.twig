@@ -11,7 +11,10 @@
     </head>
     <body style="text-align: center">
         <div id="container" style="width:800px;">
-            {% block menu %} {% include 'menu.html.twig' %} {% endblock %}
+            {% block menu %} 
+                {% include 'menuAdmin.html.twig' %} <br/>
+                {% include 'menu.html.twig' %} 
+            {% endblock %}
             {% block body %}{% endblock %}
             {% block footer %} {% include 'footer.html.twig' %} {% endblock %}
             {% block javascripts %}{% endblock %}

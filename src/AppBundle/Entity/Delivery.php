@@ -26,6 +26,7 @@ class Delivery
      *
      * @ORM\Column(name="statement", type="string", length=255)
      * fr(etat de la commande)
+     * valeursAcceptées(enAttente, enCours, Livré)
      */
     private $statement;
 

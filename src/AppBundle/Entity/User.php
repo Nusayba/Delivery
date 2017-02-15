@@ -39,6 +39,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=255)
+     * valeursAcceptées(ROLE_ADMIN, ROLE_CUSTOMER, ROLE_DELIVERYMAN)
      */
     private $role;
 
@@ -306,5 +307,9 @@ class User
     public function getAdress()
     {
         return $this->adress;
+    }
+    
+    public function __toString() {
+        return $this->login;
     }
 }

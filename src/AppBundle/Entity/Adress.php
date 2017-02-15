@@ -25,6 +25,7 @@ class Adress
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
+     * valeurAcceptées(client, restaurant)
      */
     private $type;
 
@@ -396,5 +397,9 @@ class Adress
     public function getUser()
     {
         return $this->user;
+    }
+    
+    public function __toString() {
+        return $this->firstName." ".$this->lastName;
     }
 }
