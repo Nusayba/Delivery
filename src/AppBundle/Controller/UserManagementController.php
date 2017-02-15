@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class UserManagementController extends Controller
 {
@@ -12,13 +14,20 @@ class UserManagementController extends Controller
      */
     public function registrationAction(\Symfony\Component\HttpFoundation\Request $req)
     {
-        $user = new \AppBundle\Entity\User();
+        
         $dto = new \AppBundle\DTO\UserManagementDTO();
+        
         $form=$this->createForm(\AppBundle\Form\RegistrationType::class, $dto);
         $form->handleRequest($req);
         
         if( $form->isSubmitted() && $form->isValid() ){
+            $user = new \AppBundle\Entity\User();
             // Délègue TAF au service
+            $user->setLogin($dto->getLogin());
+            $user->setPassword($dto->getPassword1());
+            $user->setFirstName($dto->getFirstName());
+            $user->setLastName($dto->getLastName());
+            $user->setRole($dto->getRole());
             
             $this->get("registration_service")->inscrire($user);
             return new \Symfony\Component\HttpFoundation\Response("Inscription effectuée");
@@ -32,6 +41,23 @@ class UserManagementController extends Controller
      */
     public function loginAction()
     {
+        $dto = new \AppBundle\DTO\UserManagementDTO();
+        
+        $form=$this->createForm(\AppBundle\Form\RegistrationType::class, $dto);
+        $form->handleRequest($req);
+        
+        if( $form->isSubmitted() && $form->isValid() ){
+            
+            $user = new \AppBundle\Entity\User();
+            // Délègue TAF au service
+            $user->setLogin($dto->getLogin());
+            $user->setPassword($dto->getPassword1());
+            
+            
+            $this->get("registration_service")->inscrire($user);
+            return new \Symfony\Component\HttpFoundation\Response("Inscription effectuée");
+        }
+        
         return $this->render('AppBundle:UserManagement:login.html.twig', array(
             // ...
         ));

@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 /**
  * Description of Registration
@@ -23,7 +24,11 @@ class RegistrationType extends AbstractType{
         $builder->add('login')
                 ->add('firstName')
                 ->add('lastName')
-                ->add('role')
+                ->add('role', ChoiceType::class, array('choices' => array(
+                        'Role' => array(
+                            'client' => 'ROLE_CUSTOMER',
+                            'livreur' => 'ROLE_DELIVERYMAN',
+                        ))))
                 ->add('password1', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class)
                 ->add('password2', \Symfony\Component\Form\Extension\Core\Type\PasswordType::class)
                 ->add('submit', \Symfony\Component\Form\Extension\Core\Type\SubmitType::class);

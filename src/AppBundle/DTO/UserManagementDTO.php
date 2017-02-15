@@ -2,6 +2,9 @@
 
 namespace AppBundle\DTO;
 
+use Symfony\Component\Validator\Constraints\Callback;
+use Symfony\Component\Validator\Constraints\Expression;
+use Symfony\Component\Validator\Constraints\Length;
 /**
  * Description of UserManagementType
  *
@@ -12,6 +15,9 @@ class UserManagementDTO {
     private $firstName;
     private $lastName;
     private $role;
+    /**
+     * @Length(min=8, max=32, charset="utf-8", minMessage="Le mot de passe doit contenir 8 caractères minimum", maxMessage="Le mot de passe doit contenir 32 caractères au maximum", exactMessage="Mot de passe valide")
+     */
     private $password1;
     private $password2;
     
@@ -63,6 +69,17 @@ class UserManagementDTO {
         $this->password2 = $password2;
     }
 
-
+    /**
+     * @Callback
+     * @param \Symfony\Component\Validator\Context\ExecutionContextInterface $context
+     * @param type $payload
+     */
+    public function maCallback(\Symfony\Component\Validator\Context\ExecutionContextInterface $context, $payload){
+        if($this->password2){
+            if($this->password1!=$this->password2){
+                $context->buildViolation("Les mots de passes doivent être identiques")->addViolation();
+            }
+        }
+    }
     
 }
