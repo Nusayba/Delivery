@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Delivery</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ delivery.id }}</td>
+            </tr>
+            <tr>
+                <th>Statement</th>
+                <td>{{ delivery.statement }}</td>
+            </tr>
+            <tr>
+                <th>Datehoursdelivery</th>
+                <td>{% if delivery.dateHoursDelivery %}{{ delivery.dateHoursDelivery|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datehoursorder</th>
+                <td>{% if delivery.dateHoursOrder %}{{ delivery.dateHoursOrder|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nbkm</th>
+                <td>{{ delivery.nbKm }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('delivery_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('delivery_edit', { 'id': delivery.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

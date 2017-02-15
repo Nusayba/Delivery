@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Deliveries list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Statement</th>
+                <th>Datehoursdelivery</th>
+                <th>Datehoursorder</th>
+                <th>Nbkm</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for delivery in deliveries %}
+            <tr>
+                <td><a href="{{ path('delivery_show', { 'id': delivery.id }) }}">{{ delivery.id }}</a></td>
+                <td>{{ delivery.statement }}</td>
+                <td>{% if delivery.dateHoursDelivery %}{{ delivery.dateHoursDelivery|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if delivery.dateHoursOrder %}{{ delivery.dateHoursOrder|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ delivery.nbKm }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('delivery_show', { 'id': delivery.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('delivery_edit', { 'id': delivery.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('delivery_new') }}">Create a new delivery</a>
+        </li>
+    </ul>
+{% endblock %}
