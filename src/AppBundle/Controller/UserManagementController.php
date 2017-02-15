@@ -20,7 +20,7 @@ class UserManagementController extends Controller
         if( $form->isSubmitted() && $form->isValid() ){
             // Délègue TAF au service
             
-            $this->get("client_service")->inscrire( $client );
+            $this->get("registration_service")->inscrire($user);
             return new \Symfony\Component\HttpFoundation\Response("Inscription effectuée");
         }
         
