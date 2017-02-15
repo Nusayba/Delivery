@@ -4,4 +4,12 @@
 
 {% block body %}
 <h1>Welcome to the UserManagement:login page</h1>
+{% if message is defined %}
+    <div> {{ message }} </div>
+{% endif %}
+
+{{ form_start(monFormulaire) }}
+        {{ form_widget(monFormulaire) }}
+       
+    {{ form_end(monFormulaire) }}
 {% endblock %}

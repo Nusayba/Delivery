@@ -12,7 +12,9 @@
     <body style="text-align: center">
         <div id="container" style="width:800px;">
             {% block menu %} 
-                {% include 'menuAdmin.html.twig' %} <br/>
+                {% if  app.session.get('role') =='ROLE_ADMIN' %}
+                    {% include 'menuAdmin.html.twig' %} <br/>
+                {% endif %}
                 {% include 'menu.html.twig' %} 
             {% endblock %}
             {% block body %}{% endblock %}

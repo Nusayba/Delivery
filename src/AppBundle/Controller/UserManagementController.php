@@ -39,28 +39,31 @@ class UserManagementController extends Controller
     /**
      * @Route("/login")
      */
-    public function loginAction()
+    public function loginAction(\Symfony\Component\HttpFoundation\Request $req)
     {
         $dto = new \AppBundle\DTO\UserManagementDTO();
         
-        $form=$this->createForm(\AppBundle\Form\RegistrationType::class, $dto);
+        $form=$this->createForm(\AppBundle\Form\LoginType::class, $dto);
         $form->handleRequest($req);
         
         if( $form->isSubmitted() && $form->isValid() ){
             
-            $user = new \AppBundle\Entity\User();
             // Délègue TAF au service
-            $user->setLogin($dto->getLogin());
-            $user->setPassword($dto->getPassword1());
+            $login=$dto->getLogin();
+            $password=$dto->getPassword1();
             
+            $reponse=$this->get("registration_service")->login($login, $password);
             
-            $this->get("registration_service")->inscrire($user);
-            return new \Symfony\Component\HttpFoundation\Response("Inscription effectuée");
+            if($reponse=="wrongLogin"){
+                return $this->render('AppBundle:UserManagement:login.html.twig', array("monFormulaire"=>$form->createView(), "message"=>"mauvais login"));
+                
+            }elseif ($reponse=="wrongPassword") {
+                return $this->render('AppBundle:UserManagement:login.html.twig', array("monFormulaire"=>$form->createView(), "message"=>"mauvais mot de passe"));
+            }
+            return $this->redirectToRoute("homepage");
         }
         
-        return $this->render('AppBundle:UserManagement:login.html.twig', array(
-            // ...
-        ));
+        return $this->render('AppBundle:UserManagement:login.html.twig', array("monFormulaire"=>$form->createView()));
     }
 
     /**
