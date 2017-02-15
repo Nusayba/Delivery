@@ -30,6 +30,7 @@ security:
             logout:
                 path: /logout
                 target: /
+                invalidate_session: false
                     
             form_login:
                 login_path: login

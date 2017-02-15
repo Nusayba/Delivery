@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class UserManagementController extends Controller
 {
@@ -69,14 +70,13 @@ class UserManagementController extends Controller
     }
 
     /**
-     * @Route("/logout")
+     * @Route("/logoutOk")
      */
-    public function logoutAction(\Symfony\Component\HttpFoundation\Request $req)
+    public function logoutOkAction(\Symfony\Component\HttpFoundation\Request $req)
     {
         $session=new Session();
-        app.session.set("role", "off");
+        $session->set("role", "off");
         return $this->redirectToRoute('homepage');
-        //return "test";
     }
 
 }

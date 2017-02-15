@@ -2,7 +2,7 @@
 
 
 {% if  app.session.get('role')=='ROLE_ADMIN' %}
-    <a href="{{ path('app_usermanagement_logout') }}">Déconnexion</a>
+    <a href="{{ path('app_usermanagement_logoutok') }}">Déconnexion</a>
 {% else %}
     <a href="{{ path('app_usermanagement_registration') }}">Inscription</a>
     <a href="{{ path('app_usermanagement_login') }}">Connexion</a>
