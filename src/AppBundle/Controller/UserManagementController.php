@@ -64,16 +64,19 @@ class UserManagementController extends Controller
         }
         
         return $this->render('AppBundle:UserManagement:login.html.twig', array("monFormulaire"=>$form->createView()));
+        
+        
     }
 
     /**
      * @Route("/logout")
      */
-    public function logoutAction()
+    public function logoutAction(\Symfony\Component\HttpFoundation\Request $req)
     {
-        return $this->render('AppBundle:UserManagement:logout.html.twig', array(
-            // ...
-        ));
+        $session=new Session();
+        app.session.set("role", "off");
+        return $this->redirectToRoute('homepage');
+        //return "test";
     }
 
 }

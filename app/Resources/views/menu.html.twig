@@ -1,7 +1,7 @@
 <a href="{{ path('homepage') }}">Accueil</a>
 
 
-{% if  app.session.get('role') is defined %}
+{% if  app.session.get('role')=='ROLE_ADMIN' %}
     <a href="{{ path('app_usermanagement_logout') }}">Déconnexion</a>
 {% else %}
     <a href="{{ path('app_usermanagement_registration') }}">Inscription</a>
