@@ -3,11 +3,18 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
+        
+        <script src="{{ asset('js/jquery-3.1.1.js') }}" type="text/javascript"></script>
+        
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    <body style="text-align: center">
+        <div id="container" style="width:800px;">
+            {% block menu %} {% include 'menu.html.twig' %} {% endblock %}
+            {% block body %}{% endblock %}
+            {% block footer %} {% include 'footer.html.twig' %} {% endblock %}
+            {% block javascripts %}{% endblock %}
+        </div>
     </body>
 </html>

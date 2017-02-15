@@ -207,5 +207,104 @@ class User
     {
         return $this->lastName;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->deliveries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add delivery
+     *
+     * @param \AppBundle\Entity\Delivery $delivery
+     *
+     * @return User
+     */
+    public function addDelivery(\AppBundle\Entity\Delivery $delivery)
+    {
+        $this->deliveries[] = $delivery;
+
+        return $this;
+    }
+
+    /**
+     * Remove delivery
+     *
+     * @param \AppBundle\Entity\Delivery $delivery
+     */
+    public function removeDelivery(\AppBundle\Entity\Delivery $delivery)
+    {
+        $this->deliveries->removeElement($delivery);
+    }
+
+    /**
+     * Get deliveries
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDeliveries()
+    {
+        return $this->deliveries;
+    }
+
+    /**
+     * Add order
+     *
+     * @param \AppBundle\Entity\Delivery $order
+     *
+     * @return User
+     */
+    public function addOrder(\AppBundle\Entity\Delivery $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \AppBundle\Entity\Delivery $order
+     */
+    public function removeOrder(\AppBundle\Entity\Delivery $order)
+    {
+        $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * Set adress
+     *
+     * @param \AppBundle\Entity\Adress $adress
+     *
+     * @return User
+     */
+    public function setAdress(\AppBundle\Entity\Adress $adress = null)
+    {
+        $this->adress = $adress;
+
+        return $this;
+    }
+
+    /**
+     * Get adress
+     *
+     * @return \AppBundle\Entity\Adress
+     */
+    public function getAdress()
+    {
+        return $this->adress;
+    }
+}
