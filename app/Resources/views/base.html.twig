@@ -3,23 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>
-        
+
         <script src="{{ asset('js/jquery-3.1.1.js') }}" type="text/javascript"></script>
-        
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body style="text-align: center">
-        <div id="container" style="width:800px;">
-            {% block menu %} 
-                {% if  app.session.get('role') =='ROLE_ADMIN' %}
-                    {% include 'menuAdmin.html.twig' %} <br/>
-                {% endif %}
-                {% include 'menu.html.twig' %} 
-            {% endblock %}
-            {% block body %}{% endblock %}
-            {% block footer %} {% include 'footer.html.twig' %} {% endblock %}
-            {% block javascripts %}{% endblock %}
-        </div>
-    </body>
+
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body style="text-align: center">
+    <div id="container" style="width:800px;">
+        {% block menu %} 
+            {% if  app.session.get('role') =='ROLE_ADMIN' %}
+                {% include 'menuAdmin.html.twig' %} <br/>
+            {% elseif app.session.get('role') =='ROLE_CUSTOMER' %}
+                {% include 'menuClient.html.twig' %} <br/>
+            {% else %}
+                {% include 'menu.html.twig' %}
+            {% endif %}
+
+        {% endblock %}
+    {% block body %}{% endblock %}
+    {% block footer %} {% include 'footer.html.twig' %} {% endblock %}
+{% block javascripts %}{% endblock %}
+</div>
+</body>
 </html>

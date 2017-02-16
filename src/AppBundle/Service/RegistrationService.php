@@ -50,7 +50,7 @@ class RegistrationService {
             return "wrongLogin";
         }else{
             $qb2=$this->em->createQueryBuilder();
-            $qb2->select("us.role");
+            $qb2->select("us");
             $qb2->from("AppBundle:User", "us");
             $qb2->where("us.login =:login"); 
             $qb2->andWhere("us.password =:mdp");
@@ -62,7 +62,8 @@ class RegistrationService {
             
             if($reponse){
                     $session=new Session();
-                    $session->set("role", $reponse[0]['role']);
+                    $session->set("role", $reponse[0]->getRole());
+                    $session->set("userId", $reponse[0]->getId());
                     return "true";
                     
                 }else{

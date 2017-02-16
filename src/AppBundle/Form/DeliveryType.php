@@ -13,7 +13,8 @@ class DeliveryType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('statement')->add('dateHoursDelivery')->add('dateHoursOrder')->add('nbKm')->add('shippingAdress')->add('deliveryMan')->add('customer')->add('recipientAdress')        ;
+        $builder->add('adressOrigin')->add('adressDestination')->add('statement', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class)->add('dateHoursDelivery')->add('dateHoursOrder')->add('nbKm')->add('deliveryMan')->add('customer')        ;
+        $builder->add("submit", \Symfony\Component\Form\Extension\Core\Type\SubmitType::class);
     }
     
     /**

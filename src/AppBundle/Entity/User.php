@@ -71,12 +71,7 @@ class User
      */
     private $orders;
     
-    /**
-     * @ORM\OneToOne(targetEntity="Adress", inversedBy="user")
-     * @ORM\JoinColumn(name="adress_user")
-     * fr(adresse du client)
-     */
-    private $adress;
+
 
 
     /**
@@ -285,29 +280,7 @@ class User
         return $this->orders;
     }
 
-    /**
-     * Set adress
-     *
-     * @param \AppBundle\Entity\Adress $adress
-     *
-     * @return User
-     */
-    public function setAdress(\AppBundle\Entity\Adress $adress = null)
-    {
-        $this->adress = $adress;
-
-        return $this;
-    }
-
-    /**
-     * Get adress
-     *
-     * @return \AppBundle\Entity\Adress
-     */
-    public function getAdress()
-    {
-        return $this->adress;
-    }
+    
     
     public function __toString() {
         return $this->login;

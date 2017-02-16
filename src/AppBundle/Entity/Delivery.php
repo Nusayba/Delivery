@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="delivery")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\DeliveryRepository")
  */
-class Delivery
-{
+class Delivery {
+
     /**
      * @var int
      *
@@ -24,7 +24,21 @@ class Delivery
     /**
      * @var string
      *
-     * @ORM\Column(name="statement", type="string", length=255)
+     * @ORM\Column(name="adress_origin", type="string")
+     */
+    private $adressOrigin;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="adress_destination", type="string")
+     */
+    private $adressDestination;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="statement", type="string", length=255, nullable=true)
      * fr(etat de la commande)
      * valeursAcceptées(enAttente, enCours, Livré)
      */
@@ -33,7 +47,7 @@ class Delivery
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateHoursDelivery", type="datetime")
+     * @ORM\Column(name="dateHoursDelivery", type="datetime", nullable=true)
      * fr(date et heure de livraison)
      */
     private $dateHoursDelivery;
@@ -49,46 +63,30 @@ class Delivery
     /**
      * @var float
      *
-     * @ORM\Column(name="nbKm", type="float")
+     * @ORM\Column(name="nbKm", type="float", nullable=true)
      */
     private $nbKm;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Adress", inversedBy="deliveryShipping")
-     * @ORM\JoinColumn(name="adress_delivery_shipping")
-     * fr(adresse d'expédition)
-     */
-    private $shippingAdress;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="deliveries")
      * @ORM\JoinColumn(name="delivery_deliveryman")
      * fr(livreur)
      */
     private $deliveryMan;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
      * @ORM\JoinColumn(name="user_order")
      * fr(client)
      */
     private $customer;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="Adress", inversedBy="deliveryRecipient")
-     * @ORM\JoinColumn(name="recipient_adress_delivery")
-     * fr(adresse de destination)
-     */
-    private $recipientAdress;
-
 
     /**
      * Get id
      *
      * @return int
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -99,8 +97,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setStatement($statement)
-    {
+    public function setStatement($statement) {
         $this->statement = $statement;
 
         return $this;
@@ -111,8 +108,7 @@ class Delivery
      *
      * @return string
      */
-    public function getStatement()
-    {
+    public function getStatement() {
         return $this->statement;
     }
 
@@ -123,8 +119,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setDateHoursDelivery($dateHoursDelivery)
-    {
+    public function setDateHoursDelivery($dateHoursDelivery) {
         $this->dateHoursDelivery = $dateHoursDelivery;
 
         return $this;
@@ -135,8 +130,7 @@ class Delivery
      *
      * @return \DateTime
      */
-    public function getDateHoursDelivery()
-    {
+    public function getDateHoursDelivery() {
         return $this->dateHoursDelivery;
     }
 
@@ -147,8 +141,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setDateHoursOrder($dateHoursOrder)
-    {
+    public function setDateHoursOrder($dateHoursOrder) {
         $this->dateHoursOrder = $dateHoursOrder;
 
         return $this;
@@ -159,8 +152,7 @@ class Delivery
      *
      * @return \DateTime
      */
-    public function getDateHoursOrder()
-    {
+    public function getDateHoursOrder() {
         return $this->dateHoursOrder;
     }
 
@@ -171,8 +163,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setNbKm($nbKm)
-    {
+    public function setNbKm($nbKm) {
         $this->nbKm = $nbKm;
 
         return $this;
@@ -183,33 +174,8 @@ class Delivery
      *
      * @return float
      */
-    public function getNbKm()
-    {
+    public function getNbKm() {
         return $this->nbKm;
-    }
-
-    /**
-     * Set shippingAdress
-     *
-     * @param \AppBundle\Entity\Adress $shippingAdress
-     *
-     * @return Delivery
-     */
-    public function setShippingAdress(\AppBundle\Entity\Adress $shippingAdress = null)
-    {
-        $this->shippingAdress = $shippingAdress;
-
-        return $this;
-    }
-
-    /**
-     * Get shippingAdress
-     *
-     * @return \AppBundle\Entity\Adress
-     */
-    public function getShippingAdress()
-    {
-        return $this->shippingAdress;
     }
 
     /**
@@ -219,8 +185,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setDeliveryMan(\AppBundle\Entity\User $deliveryMan = null)
-    {
+    public function setDeliveryMan(\AppBundle\Entity\User $deliveryMan = null) {
         $this->deliveryMan = $deliveryMan;
 
         return $this;
@@ -231,8 +196,7 @@ class Delivery
      *
      * @return \AppBundle\Entity\User
      */
-    public function getDeliveryMan()
-    {
+    public function getDeliveryMan() {
         return $this->deliveryMan;
     }
 
@@ -243,8 +207,7 @@ class Delivery
      *
      * @return Delivery
      */
-    public function setCustomer(\AppBundle\Entity\User $customer = null)
-    {
+    public function setCustomer(\AppBundle\Entity\User $customer = null) {
         $this->customer = $customer;
 
         return $this;
@@ -255,32 +218,52 @@ class Delivery
      *
      * @return \AppBundle\Entity\User
      */
-    public function getCustomer()
-    {
+    public function getCustomer() {
         return $this->customer;
     }
 
     /**
-     * Set recipientAdress
+     * Set adressOrigin
      *
-     * @param \AppBundle\Entity\Adress $recipientAdress
+     * @param string $adressOrigin
      *
      * @return Delivery
      */
-    public function setRecipientAdress(\AppBundle\Entity\Adress $recipientAdress = null)
-    {
-        $this->recipientAdress = $recipientAdress;
+    public function setAdressOrigin($adressOrigin) {
+        $this->adressOrigin = $adressOrigin;
 
         return $this;
     }
 
     /**
-     * Get recipientAdress
+     * Get adressOrigin
      *
-     * @return \AppBundle\Entity\Adress
+     * @return string
      */
-    public function getRecipientAdress()
-    {
-        return $this->recipientAdress;
+    public function getAdressOrigin() {
+        return $this->adressOrigin;
     }
+
+    /**
+     * Set adressDestination
+     *
+     * @param string $adressDestination
+     *
+     * @return Delivery
+     */
+    public function setAdressDestination($adressDestination) {
+        $this->adressDestination = $adressDestination;
+
+        return $this;
+    }
+
+    /**
+     * Get adressDestination
+     *
+     * @return string
+     */
+    public function getAdressDestination() {
+        return $this->adressDestination;
+    }
+
 }
